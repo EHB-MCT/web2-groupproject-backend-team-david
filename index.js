@@ -34,7 +34,6 @@ app.get('/api/boardgames', async(req, res) => {
 
         // let data = JSON.parse(result);
         res.status(200).send(bgs);
-        res.status(200).send(bgs[0]._id);
     }catch(error)  {
         console.log(error);
         res.status(500).send({
