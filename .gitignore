@@ -120,5 +120,7 @@ dist
 # SVG
 *.svg
 
-# # Config MongoDB
-# config.json
+# Config MongoDB
+.env
+.env.test
+.env.production
