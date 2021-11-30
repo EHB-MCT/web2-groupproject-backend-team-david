@@ -1,7 +1,0 @@
-{
-    "baseuri": "mongodb+srv://<username>:<password>@cluster0.npx0y.mongodb.net/session5?retryWrites=true&w=majority",
-    "username": "test",
-    "password": "test",
-    "db": "test",
-    "uri": "mongodb+srv://test:test@cluster0.npx0y.mongodb.net/session5?retryWrites=true&w=majority"
-}
