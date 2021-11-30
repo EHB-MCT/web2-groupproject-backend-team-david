@@ -77,7 +77,6 @@ app.get('/api/boardgame', async function(req, res) {
         await client.close();
     }
 });
-
 app.post('/api/saveData', async (req, res)  =>  {
     console.log(req.body);
     data = JSON.stringify(req.body);
@@ -91,12 +90,7 @@ app.post('/api/saveData', async (req, res)  =>  {
 });
 
 
-app.post('/api/saveBoardgame', async (req, res)  =>  {
-    if(!req.body.bggid || !req.body.name || !req.body.genre || !req.body.mechanisms || !req.body.description)  {
-        res.status(400).send(' Bad request: missing id, name, genre, mechanisms or description');
-        return;
-    }
-    
+app.post('/api/saveBoardgame', async (req, res)  =>  {    
     try  {
         await client.connect();
 
