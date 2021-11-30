@@ -98,21 +98,8 @@ app.post('/api/saveBoardgame', async (req, res)  =>  {
         // find: not an async function => const bgs = client.db('session5').collection('boardgames').find({}).toArray(); => niet mogelijk
         const collection = client.db('session5').collection('boardgames2');
         
-        // validate for double boardgames
-        const bg = await collection.findOne({bggid: req.body.bggid})
-        if(bg)  {
-            res.status(400).send('Bad request: boardgame already exists with bggid ' + req.body.bggid);
-            return;
-        }
 
-        // create the new boardgame object
-        let newBoardgame  =  {
-            bggid: req.body.bggid,
-            name: req.body.name,
-            mechanisms: req.body.mechanisms,
-            description: req.body.description
-        };
-
+    
         // Insert into the database
         let insertResult = await collection.insertOne(newBoardgame);
         console.log(`A document was inserted with the _id: ${insertResult.insertedId}`);
