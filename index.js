@@ -77,7 +77,6 @@ app.get('/api/boardgame', async function(req, res) {
         await client.close();
     }
 });
-
 app.post('/api/saveData', async (req, res)  =>  {
     console.log(req.body);
     data = JSON.stringify(req.body);
@@ -91,12 +90,7 @@ app.post('/api/saveData', async (req, res)  =>  {
 });
 
 
-app.post('/api/saveBoardgame', async (req, res)  =>  {
-    if(!req.body.bggid || !req.body.name || !req.body.genre || !req.body.mechanisms || !req.body.description)  {
-        res.status(400).send(' Bad request: missing id, name, genre, mechanisms or description');
-        return;
-    }
-    
+app.post('/api/saveBoardgame', async (req, res)  =>  {    
     try  {
         await client.connect();
 
@@ -104,21 +98,8 @@ app.post('/api/saveBoardgame', async (req, res)  =>  {
         // find: not an async function => const bgs = client.db('session5').collection('boardgames').find({}).toArray(); => niet mogelijk
         const collection = client.db('session5').collection('boardgames2');
         
-        // validate for double boardgames
-        const bg = await collection.findOne({bggid: req.body.bggid})
-        if(bg)  {
-            res.status(400).send('Bad request: boardgame already exists with bggid ' + req.body.bggid);
-            return;
-        }
 
-        // create the new boardgame object
-        let newBoardgame  =  {
-            bggid: req.body.bggid,
-            name: req.body.name,
-            mechanisms: req.body.mechanisms,
-            description: req.body.description
-        };
-
+    
         // Insert into the database
         let insertResult = await collection.insertOne(newBoardgame);
         console.log(`A document was inserted with the _id: ${insertResult.insertedId}`);
