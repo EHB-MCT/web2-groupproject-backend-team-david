@@ -2,15 +2,13 @@ const fs = require('fs/promises');
 const express = require('express');
 const bodyParser = require('body-parser')
 const { MongoClient } = require("mongodb");
-const cors = require('cors');
 require('dotenv').config();
 
-// https://www.codegrepper.com/code-examples/javascript/access+to+xmlhttprequest+blocked+by+cors+policy
-const corsOptions ={
-    origin:'http://localhost:5500', 
-    optionSuccessStatus:200
-}
-app.use(cors(corsOptions));
+app.use(function (request, response, next) {
+    response.header("Access-Control-Allow-Origin", "*");
+    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 // create the mongo Client to use
 const client = new MongoClient(process.env.FINAL_URL)
