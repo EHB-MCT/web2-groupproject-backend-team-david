@@ -4,12 +4,6 @@ const bodyParser = require('body-parser')
 const { MongoClient } = require("mongodb");
 require('dotenv').config();
 
-app.use(function (request, response, next) {
-    response.header("Access-Control-Allow-Origin", "*");
-    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
-
 // create the mongo Client to use
 const client = new MongoClient(process.env.FINAL_URL)
 
