@@ -2,7 +2,7 @@ const fs = require('fs/promises');
 const express = require('express');
 const bodyParser = require('body-parser')
 const { MongoClient } = require("mongodb");
-const cors = require('cors')
+//const cors = require('cors')
 require('dotenv').config();
 
 // create the mongo Client to use
@@ -13,7 +13,7 @@ const client = new MongoClient(process.env.FINAL_URL)
 https://www.youtube.com/watch?v=_5uHZ6iOHeM&list=PLGsnrfn8XzXii2J5-Jpqufypu6upxcSGx&index=11
 const app = express();
 const port = process.env.PORT;
-app.use(cors())
+//app.use(cors())
 
 
 app.use(express.static("public"));
