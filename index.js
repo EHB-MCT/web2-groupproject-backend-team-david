@@ -7,9 +7,12 @@ require('dotenv').config();
 // create the mongo Client to use
 const client = new MongoClient(process.env.FINAL_URL)
 
+
+// https://www.npmjs.com/package/cors
+https://www.youtube.com/watch?v=_5uHZ6iOHeM&list=PLGsnrfn8XzXii2J5-Jpqufypu6upxcSGx&index=11
 const app = express();
 const port = process.env.PORT;
-
+var cors = require('cors')
 
 
 app.use(express.static("public"));
