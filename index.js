@@ -85,41 +85,34 @@ app.get('/api/boardgame', async function(req, res) {
         await client.close();
     }
 });
-app.post('/api/saveData', async (req, res)  =>  {
-    console.log(req.body);
-    data = JSON.stringify(req.body);
-    try  {
-        let result = await fs.writeFile(`test.json`, data);
-
-    } catch(error)  {
-        console.log(error);
-    }
-    res.send(`Data recieved with id ${req.body.id}`);
-});
 
 
-app.post('/api/saveBoardgame', async (req, res)  =>  {    
+app.post('/api/saveChallenge', async (req, res)  =>  {    
     try  {
         await client.connect();
 
         // retrieve the boardgame collection data
         // find: not an async function => const bgs = client.db('session5').collection('boardgames').find({}).toArray(); => niet mogelijk
-        const collection = client.db('session5').collection('boardgames2');
+        
         
 
         // create the new boardgame object
-        let newBoardgame  =  {
+        let newChallenge  =  {
             name: req.body.name,
+            points: req.body.points,
+            course: req.body.course,
+            session: req.body.session
         };
 
+        const collection = client.db('session5').collection(newChallenge.course);
 
         // Insert into the database
-        let insertResult = await collection.insertOne(newBoardgame);
+        let insertResult = await collection.insertOne(newChallenge);
         console.log(`A document was inserted with the _id: ${insertResult.insertedId}`);
 
 
         // 201: data => updated
-        res.status(201).send(`boardgame succesfully saved with id ${req.body.bggid}`);
+        res.status(201).send(`boardgame succesfully saved with id ${req.body.name}`);
     } catch(error)  {
         console.log(error);
         res.status(500).send({
