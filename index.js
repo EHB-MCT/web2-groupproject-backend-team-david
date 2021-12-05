@@ -40,7 +40,7 @@ app.get('/api/challenges', async(req, res) => {
         const DEVIII_collection = client.db('session5').collection('DEVIII');
         const challenge_DEVIII = await DEVIII_collection.find({}).toArray();
 
-        res.status(200).send(challenge_DEVIII, challenge_WEBII);
+        res.status(200).send(challenge_DEVIII);
     }catch(error)  {
         console.log(error);
         res.status(500).send({
