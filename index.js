@@ -109,10 +109,7 @@ app.post('/api/saveBoardgame', async (req, res)  =>  {
 
         // create the new boardgame object
         let newBoardgame  =  {
-            bggid: req.body.bggid,
             name: req.body.name,
-            mechanisms: req.body.mechanisms,
-            description: req.body.description
         };
 
 
