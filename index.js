@@ -28,16 +28,19 @@ app.get('/', (req, res) => {
     res.redirect("/info.html");
 });
 
-app.get('/api/boardgames', async(req, res) => {
+app.get('/api/challenges', async(req, res) => {
     try {
         await client.connect();
 
         // retrieve the boardgame collection data
         // find: not an async function => const bgs = client.db('session5').collection('boardgames').find({}).toArray(); => niet mogelijk
-        const collection = client.db('session5').collection('boardgames2');
-        const bgs = await collection.find({}).toArray();
+        const WEBII_collection = client.db('session5').collection('WEBII');
+        const challenge_WEBII = await WEBII_collection.find({}).toArray();
 
-        res.status(200).send(bgs);
+        const DEVIII_collection = client.db('session5').collection('DEVIII');
+        const challenge_DEVIII = await DEVIII_collection.find({}).toArray();
+
+        res.status(200).send(challenge_DEVIII, challenge_WEBII);
     }catch(error)  {
         console.log(error);
         res.status(500).send({
@@ -90,12 +93,7 @@ app.get('/api/boardgame', async function(req, res) {
 app.post('/api/saveChallenge', async (req, res)  =>  {    
     try  {
         await client.connect();
-
-        // retrieve the boardgame collection data
-        // find: not an async function => const bgs = client.db('session5').collection('boardgames').find({}).toArray(); => niet mogelijk
-        
-        
-
+   
         // create the new boardgame object
         let newChallenge  =  {
             name: req.body.name,
@@ -104,6 +102,8 @@ app.post('/api/saveChallenge', async (req, res)  =>  {
             session: req.body.session
         };
 
+        // retrieve the boardgame collection data
+        // find: not an async function => const bgs = client.db('session5').collection('boardgames').find({}).toArray(); => niet mogelijk
         const collection = client.db('session5').collection(newChallenge.course);
 
         // Insert into the database
