@@ -53,10 +53,75 @@ app.get('/api/challenges', async(req, res) => {
     }
 });
 
-app.get('/api/boardgame/:id', async function(req, res) {
-    let id = req.query;
 
-    res.send(id)
+
+// https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/#h-name-collections-with-plural-nouns
+app.put('/api/challenges/:id', async function(req, res) {
+    let id = req.params.id.toString;
+    try {
+        await client.connect();
+
+        // retrieve the boardgame collection data
+        // find: not an async function => const bgs = client.db('session5').collection('boardgames').find({}).toArray(); => niet mogelijk
+        console.log("Connected correctly to server");
+        const db = client.db(process.env.DB);
+
+        // Use the collection "people"
+        const col = db.collection("challenges");
+
+
+        const query = { _id: id };
+        const options = {
+            $set: { "name": "Hira"}
+          }
+
+        const challenge = await col.updateOne(query, options)
+        res.status(200).send(challenge);
+    }catch(error)  {
+        console.log(error);
+        res.status(500).send({
+            error: 'error',
+            value: error
+        });
+    }finally  {
+        await client.close();
+    }
+
+
+    console.log(id)
+});
+
+// https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/#h-name-collections-with-plural-nouns
+// https://docs.mongodb.com/manual/tutorial/update-documents/
+app.delete('/api/challenges/:id', async function(req, res) {
+    let id = req.params.id.toString;
+    try {
+        await client.connect();
+
+        // retrieve the boardgame collection data
+        // find: not an async function => const bgs = client.db('session5').collection('boardgames').find({}).toArray(); => niet mogelijk
+        console.log("Connected correctly to server");
+        const db = client.db(process.env.DB);
+
+        // Use the collection "people"
+        const col = db.collection("challenges");
+
+        const query = { _id: id };
+
+        const challenge = await col.deleteOne(query)
+        res.status(200).send(challenge);
+    }catch(error)  {
+        console.log(error);
+        res.status(500).send({
+            error: 'error',
+            value: error
+        });
+    }finally  {
+        await client.close();
+    }
+
+
+    console.log(id)
 });
 
 
