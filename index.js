@@ -6,7 +6,7 @@ const cors = require("cors");
 require('dotenv').config();
 
 // create the mongo Client to use
-const client = new MongoClient(process.env.FINAL_URL)
+const client = new MongoClient(process.env.FINAL_URL2)
 
 
 // https://www.npmjs.com/package/cors
@@ -34,17 +34,14 @@ app.get('/api/challenges', async(req, res) => {
 
         // retrieve the boardgame collection data
         // find: not an async function => const bgs = client.db('session5').collection('boardgames').find({}).toArray(); => niet mogelijk
-        const WEBII_collection = client.db('session5').collection('WEBII');
-        const challenge_WEBII = await WEBII_collection.find({}).toArray();
+        console.log("Connected correctly to server");
+        const db = client.db(process.env.DB);
 
-        const DEVIII_collection = client.db('session5').collection('DEVIII');
-        const challenge_DEVIII = await DEVIII_collection.find({}).toArray();
+        // Use the collection "people"
+        const col = db.collection("challenges");
 
-        let test = {
-            "DEV": challenge_DEVIII,
-            "WEB": challenge_WEBII
-        }
-        res.status(200).send(test);
+
+        res.status(200).send(col);
     }catch(error)  {
         console.log(error);
         res.status(500).send({
