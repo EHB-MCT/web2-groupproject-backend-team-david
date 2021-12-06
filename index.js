@@ -57,7 +57,7 @@ app.get('/api/challenges', async(req, res) => {
 
 // https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/#h-name-collections-with-plural-nouns
 // https://docs.mongodb.com/manual/tutorial/update-documents/
-app.put('/api/challenges', async function(req, res) {
+app.put('/api/challenges/:id', async function(req, res) {
     let id = req.params.id.toString;
     try {
         await client.connect();
