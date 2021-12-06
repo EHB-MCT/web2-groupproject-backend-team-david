@@ -53,41 +53,10 @@ app.get('/api/challenges', async(req, res) => {
     }
 });
 
-app.get('/api/boardgame', async function(req, res) {
-    let id = req.query.id;
+app.get('/api/boardgame/:id', async function(req, res) {
+    let id = req.query;
 
-    try{
-        await client.connect();
-
-        // retrieve the boardgame collection data
-        // find: not an async function => const bgs = client.db('session5').collection('boardgames').find({}).toArray(); => niet mogelijk
-        const collection = client.db('session5').collection('boardgames2');
-        
-
-        // https://docs.mongodb.com/drivers/node/current/usage-examples/findOne/
-        const query = { bggid: Number(id) };
-        const options = {
-            // Include only the `title` and `imdb` fields in the returned document
-            projection: { _id: 0},
-        };
-
-        const bg = await collection.findOne(query, options)
-
-        if(bg)  {
-            res.status(200).send(bg);
-            return;
-        }  else  {
-            res.status(400).send('Boardgame could not found with id: ' + id);
-        }
-    }catch(error)  {
-        console.log(error);
-        res.status(500).send({
-            error: 'error',
-            value: error
-        });
-    }finally {
-        await client.close();
-    }
+    res.send(id)
 });
 
 
@@ -95,7 +64,7 @@ app.post('/api/saveChallenge', async (req, res)  =>  {
     try  {
         await client.connect();
    
-        // create the new boardgame object
+        // create the new challenge object
         let newChallenge  =  {
             name: req.body.name,
             points: req.body.points,
