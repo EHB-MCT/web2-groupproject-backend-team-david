@@ -40,8 +40,8 @@ app.get('/api/challenges', async(req, res) => {
         // Use the collection "people"
         const col = db.collection("challenges");
 
-
-        res.status(200).send(col);
+        const data =  await col.find({}).toArray();
+        res.status(200).send(data);
     }catch(error)  {
         console.log(error);
         res.status(500).send({
