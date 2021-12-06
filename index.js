@@ -56,7 +56,8 @@ app.get('/api/challenges', async(req, res) => {
 
 
 // https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/#h-name-collections-with-plural-nouns
-app.put('/api/challenges/:id', async function(req, res) {
+// https://docs.mongodb.com/manual/tutorial/update-documents/
+app.put('/api/challenges', async function(req, res) {
     let id = req.params.id.toString;
     try {
         await client.connect();
@@ -92,7 +93,7 @@ app.put('/api/challenges/:id', async function(req, res) {
 });
 
 // https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/#h-name-collections-with-plural-nouns
-// https://docs.mongodb.com/manual/tutorial/update-documents/
+
 app.delete('/api/challenges/:id', async function(req, res) {
     let id = req.params.id.toString;
     try {
