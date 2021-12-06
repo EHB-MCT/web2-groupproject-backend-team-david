@@ -109,7 +109,7 @@ app.post('/api/saveChallenge', async (req, res)  =>  {
         const col = db.collection("challenges");
 
         // Insert into the database
-        let insertResult = await collection.insertOne(col);
+        let insertResult = await col.insertOne(newChallenge);
         console.log(`A document was inserted with the _id: ${insertResult.insertedId}`);
 
 
