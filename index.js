@@ -103,12 +103,13 @@ app.post('/api/saveChallenge', async (req, res)  =>  {
             session: req.body.session
         };
 
-        // retrieve the boardgame collection data
-        // find: not an async function => const bgs = client.db('session5').collection('boardgames').find({}).toArray(); => niet mogelijk
-        const collection = client.db('session5').collection(newChallenge.course);
+        const db = client.db(process.env.DB);
+
+        // Use the collection "people"
+        const col = db.collection("challenges");
 
         // Insert into the database
-        let insertResult = await collection.insertOne(newChallenge);
+        let insertResult = await collection.insertOne(col);
         console.log(`A document was inserted with the _id: ${insertResult.insertedId}`);
 
 
