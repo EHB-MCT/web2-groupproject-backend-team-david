@@ -1,7 +1,7 @@
 const fs = require('fs/promises');
 const express = require('express');
 const bodyParser = require('body-parser')
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 const cors = require("cors");
 require('dotenv').config();
 
@@ -72,12 +72,12 @@ app.put('/api/challenges/:id', async function(req, res) {
         const col = db.collection("challenges");
 
 
-        const query = { _id: id.toString };
+        const query = { _id: ObjectId(id)};
         const options = {
-            $set: { "name": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"}
+            $set: { "name": "lhjklhjhlkhlkjhlkhlhjj"}
           }
 
-        const challenge = await col.updateOne(query, options)
+        const challenge = await col.update(query, options)
         res.status(200).send(challenge);
     }catch(error)  {
         console.log(error);
