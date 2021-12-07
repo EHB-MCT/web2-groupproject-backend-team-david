@@ -58,7 +58,8 @@ app.get('/api/challenges', async(req, res) => {
 // https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/#h-name-collections-with-plural-nouns
 // https://docs.mongodb.com/manual/tutorial/update-documents/
 app.put('/api/challenges/:id', async function(req, res) {
-    let id = req.params.id.toString;
+    let id = req.params.id;
+    
     try {
         await client.connect();
 
@@ -71,9 +72,9 @@ app.put('/api/challenges/:id', async function(req, res) {
         const col = db.collection("challenges");
 
 
-        const query = { _id: id };
+        const query = { _id: id.toString };
         const options = {
-            $set: { "name": "Hira"}
+            $set: { "name": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"}
           }
 
         const challenge = await col.updateOne(query, options)
